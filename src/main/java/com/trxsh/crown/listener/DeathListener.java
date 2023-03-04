@@ -27,6 +27,12 @@ public class DeathListener implements Listener {
             LivesManager.instance.removeLife((Player)e.getEntity());
             e.getEntity().sendMessage("You lost a life! "  + ChatColor.RED + ChatColor.BOLD + "be careful...");
 
+            if(e.getEntity().getKiller() instanceof Player) {
+
+                LivesManager.instance.addLife((Player)e.getEntity().getKiller());
+
+            }
+
         }
     }
 

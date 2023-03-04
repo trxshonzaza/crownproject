@@ -7,26 +7,33 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CrownHandler {
 
     public static ItemStack crownStack;
     public static int droppedCrowns = 0;
 
-    public static Player whoIsHoldingCrown() {
+    public static List<Player> whoIsHoldingCrownList() {
+
+        List<Player> toReturn = new ArrayList<Player>();
 
         for(Player player : Bukkit.getOnlinePlayers()) {
 
             if(player.getInventory().getHelmet() != null) {
 
                 if(player.getInventory().getHelmet().equals(crownStack)) {
-                    return player;
+
+                    toReturn.add(player);
+
                 }
 
             }
 
         }
 
-        return null;
+        return toReturn;
 
     }
 

@@ -55,8 +55,6 @@ public final class Main extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[Crown] loading data");
 
-        FileManager.createConfigDirectories();
-
         if(FileManager.data.exists()) {
 
             FileManager.readPlayerData();

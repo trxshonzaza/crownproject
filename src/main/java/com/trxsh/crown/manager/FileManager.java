@@ -19,23 +19,11 @@ import java.util.*;
 
 public class FileManager {
 
-    public static File lives = new File("plugins/TrxshProd/config/lives.mgr");
-    public static File deaths = new File("plugins/TrxshProd/config/deaths.mgr");
-    public static File crowns = new File("plugins/TrxshProd/config/crowns.mgr");
-    public static File data = new File("plugins/TrxshProd/config/data.mgr");
+    public static File lives = new File("lives.mgr");
+    public static File deaths = new File("deaths.mgr");
+    public static File crowns = new File("crowns.mgr");
+    public static File data = new File("data.mgr");
     public static String separator = System.getProperty("line.separator");
-
-    public static void createConfigDirectories() {
-
-        File file = new File("plugins/TrxshProd/config");
-
-        if(file.exists()) {
-
-            file.mkdirs();
-
-        }
-
-    }
 
     public static void writeLives() {
 

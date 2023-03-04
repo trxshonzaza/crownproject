@@ -64,7 +64,7 @@ public class LivesManager {
 
         playerLives.replace(p, lives);
 
-        if(lives == 0) {
+        if(lives <= 0) {
 
             playerLives.remove(p);
             addNewPlayer(p);
@@ -93,7 +93,7 @@ public class LivesManager {
 
         lives = (lives - toTake);
 
-        if(lives == 0) {
+        if(lives <= 0) {
 
             lives = playerLives.get(p);
 
