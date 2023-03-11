@@ -30,7 +30,7 @@ public class PlayerListener implements Listener {
 
         try {
 
-            TextureManager.LoadTexture(e.getPlayer());
+            TextureManager.loadTexture(e.getPlayer());
 
         }catch(InvocationTargetException e1) { }
 

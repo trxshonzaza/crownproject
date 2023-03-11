@@ -5,6 +5,7 @@ import com.trxsh.crown.data.PlayerData;
 import com.trxsh.crown.executor.LifeCheckExecutor;
 import com.trxsh.crown.executor.LifeWithdrawExecutor;
 import com.trxsh.crown.executor.ListExecutor;
+import com.trxsh.crown.executor.TexturesExecutor;
 import com.trxsh.crown.handler.CrownHandler;
 import com.trxsh.crown.listener.*;
 import com.trxsh.crown.manager.*;
@@ -24,6 +25,7 @@ public final class Main extends JavaPlugin {
     public static LivesManager lifeManager = null;
 
     public static String url = "https://www.dropbox.com/s/m1ordkty7rd9yai/golden-crowns.zip?dl=1";
+    public static String optional = "https://www.dropbox.com/s/vcr3jrqc6glcwc2/OptionalTextures.zip?dl=1";
 
     public static List<PlayerData> data = new ArrayList<PlayerData>();
 
@@ -44,6 +46,7 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginCommand("lists").setExecutor(new ListExecutor());
         Bukkit.getPluginCommand("lives").setExecutor(new LifeCheckExecutor());
         Bukkit.getPluginCommand("withdraw").setExecutor(new LifeWithdrawExecutor());
+        Bukkit.getPluginCommand("textures").setExecutor(new TexturesExecutor());
 
         /* early init crown handler stack */
         CrownHandler.getCrownStack();

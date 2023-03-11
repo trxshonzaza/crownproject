@@ -10,13 +10,24 @@ import java.lang.reflect.InvocationTargetException;
 
 public class TextureManager {
 
-    public static void LoadTexture(Player p) throws InvocationTargetException {
+    public static void loadTexture(Player p) throws InvocationTargetException {
 
         PacketContainer packet = new ProtocolLibrary().getProtocolManager().createPacket(PacketType.Play.Server.RESOURCE_PACK_SEND);
 
         packet.getStrings().write(0, Main.url).write(1, "sha-1 sum");
 
         ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet);
+
+    }
+
+    public static void loadOptionalTexture(Player p) throws InvocationTargetException {
+
+        PacketContainer packet = new ProtocolLibrary().getProtocolManager().createPacket(PacketType.Play.Server.RESOURCE_PACK_SEND);
+
+        packet.getStrings().write(0, Main.optional).write(1, "sha-1 sum");
+
+        ProtocolLibrary.getProtocolManager().sendServerPacket(p, packet);
+
     }
 
 }

@@ -7,10 +7,12 @@ depend: [ ProtocolLib ]
 description: crown plugin idk why
 commands:
   lists:
-    description: shows lists of players holding crowns and players using potions
+    description: shows lists of players holding crowns and players using potions.
     usage: /<command>
   lives:
-    description: shows the lifes of a player
+    description: shows the lifes of a player.
     usage: /<command>
   withdraw:
     description: withdraws a life as a usable item. You cannot withdraw all your lives and kill yourself!
+  textures:
+    description: loads optional textures.
