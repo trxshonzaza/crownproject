@@ -78,7 +78,7 @@ public class FileManager {
 
             FileWriter writer = new FileWriter(crowns);
 
-            writer.write(CrownHandler.droppedCrowns);
+            writer.write(Integer.toString(CrownHandler.droppedCrowns));
 
             writer.close();
 

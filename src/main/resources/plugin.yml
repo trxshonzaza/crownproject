@@ -3,6 +3,7 @@ version: '${project.version}'
 main: com.trxsh.crown.Main
 api-version: 1.19
 authors: [ trxsh ]
+depend: [ ProtocolLib ]
 description: crown plugin idk why
 commands:
   lists:

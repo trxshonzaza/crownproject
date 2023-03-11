@@ -25,11 +25,17 @@ public class LifeWithdrawExecutor implements CommandExecutor {
 
                     ItemStack toAdd = RecipeManager.extralife;
 
-                    toAdd.setAmount(toTake);
+                    toAdd.setAmount(LivesManager.instance.removeLifes(((Player) sender).getPlayer(), toTake));
+
+                    if(toAdd.getAmount() == 0) {
+
+                        return true;
+
+                    }
 
                     ((Player) sender).getInventory().addItem(toAdd);
 
-                    return LivesManager.instance.removeLifes(((Player) sender).getPlayer(), toTake);
+                    return true;
 
                 }
 

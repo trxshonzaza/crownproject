@@ -4,12 +4,14 @@ import com.trxsh.crown.crafting.RecipeManager;
 import com.trxsh.crown.manager.InventoryManager;
 import com.trxsh.crown.manager.LivesManager;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class ItemUseListener implements Listener {
 
@@ -33,7 +35,16 @@ public class ItemUseListener implements Listener {
                     e.getPlayer().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "You gained an extra life!");
 
                     LivesManager.instance.addLife(e.getPlayer());
-                    e.getPlayer().getInventory().removeItem(RecipeManager.extralife);
+
+                    if(e.getItem().getAmount() == 1) {
+
+                        e.getItem().setAmount(0);
+
+                    } else {
+
+                        e.getItem().setAmount(e.getItem().getAmount() - 1);
+
+                    }
 
                 }
 

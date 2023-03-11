@@ -13,6 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +22,8 @@ public final class Main extends JavaPlugin {
     public static Main instance = null;
     public static CrownManager manager = null;
     public static LivesManager lifeManager = null;
+
+    public static String url = "https://www.dropbox.com/s/m1ordkty7rd9yai/golden-crowns.zip?dl=1";
 
     public static List<PlayerData> data = new ArrayList<PlayerData>();
 
@@ -34,6 +37,8 @@ public final class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new MovementListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerListener(), this);
         Bukkit.getPluginManager().registerEvents(new ItemUseListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ResourcePackListener(), this);
+
         Bukkit.getPluginManager().registerEvents(new InventoryManager(), this);
 
         Bukkit.getPluginCommand("lists").setExecutor(new ListExecutor());

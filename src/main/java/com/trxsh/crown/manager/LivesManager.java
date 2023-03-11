@@ -87,20 +87,18 @@ public class LivesManager {
 
     }
 
-    public boolean removeLifes(Player p, int toTake) {
+    public int removeLifes(Player p, int toTake) {
 
         int lives = playerLives.get(p);
 
         lives = (lives - toTake);
 
-        if(lives <= 0) {
-
-            lives = playerLives.get(p);
+        if(lives < 0 || lives == 0 || lives >= playerLives.get(p)) {
 
             p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, .5f);
             p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + " You cannot remove all of your lives!");
 
-            return false;
+            return 0;
 
         }
 
@@ -109,7 +107,7 @@ public class LivesManager {
         p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, .5f);
         p.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + " Removed lives!");
 
-        return true;
+        return toTake;
 
     }
 

@@ -37,26 +37,24 @@ public class CrownHandler {
 
     }
 
-    public static boolean dropCrown(Location location, Player killer) {
+    public static void dropCrown(Location location, Player killer) {
 
         killer.playSound(location, Sound.ENTITY_GENERIC_EXPLODE, 1, 1);
         killer.spawnParticle(Particle.EXPLOSION_HUGE, location, 2);
 
         World world = killer.getWorld();
 
-        if(droppedCrowns > 3) {
+        if(droppedCrowns < 3) {
 
-            return false;
+            Item stack = world.dropItem(location, getCrownStack());
+
+            killer.sendMessage(ChatColor.BOLD + "Whats this? " + ChatColor.WHITE + "a " + ChatColor.YELLOW + "" + ChatColor.BOLD + "CROWN" + ChatColor.WHITE + " appears!");
+
+            ++droppedCrowns;
+
+            return;
 
         }
-
-        droppedCrowns++;
-
-        Item stack = world.dropItem(location, getCrownStack());
-
-        killer.sendMessage(ChatColor.BOLD + "Whats this? " + ChatColor.WHITE + "a " + ChatColor.YELLOW + "" + ChatColor.BOLD + "CROWN" + ChatColor.WHITE + " appears!");
-
-        return true;
 
     }
 
