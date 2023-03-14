@@ -25,7 +25,7 @@ public final class Main extends JavaPlugin {
     public static LivesManager lifeManager = null;
 
     public static String url = "https://www.dropbox.com/s/m1ordkty7rd9yai/golden-crowns.zip?dl=1";
-    public static String optional = "https://www.dropbox.com/s/vcr3jrqc6glcwc2/OptionalTextures.zip?dl=1";
+    public static String optional = "https://www.dropbox.com/s/m51bzz6uuwevg68/vanilla%20tweaks%20%2B%20crown%20textures.zip?dl=1";
 
     public static List<PlayerData> data = new ArrayList<PlayerData>();
 

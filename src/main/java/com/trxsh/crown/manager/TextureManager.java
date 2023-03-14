@@ -7,8 +7,12 @@ import com.trxsh.crown.Main;
 import org.bukkit.entity.Player;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TextureManager {
+
+    public static List<Player> loadingOptional = new ArrayList<Player>();
 
     public static void loadTexture(Player p) throws InvocationTargetException {
 
@@ -21,6 +25,8 @@ public class TextureManager {
     }
 
     public static void loadOptionalTexture(Player p) throws InvocationTargetException {
+
+        loadingOptional.add(p);
 
         PacketContainer packet = new ProtocolLibrary().getProtocolManager().createPacket(PacketType.Play.Server.RESOURCE_PACK_SEND);
 

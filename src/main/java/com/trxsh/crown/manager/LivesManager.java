@@ -69,6 +69,7 @@ public class LivesManager {
             playerLives.remove(p);
             addNewPlayer(p);
 
+            Bukkit.broadcastMessage(ChatColor.RED + p.getName() + " ran out of lives...");
             p.kickPlayer(ChatColor.RED + "" + ChatColor.BOLD + "You ran out of lives...\n" + ChatColor.GREEN + "Get a friend to revive you!");
             Bukkit.getBanList(BanList.Type.NAME).addBan(p.getName(), ChatColor.RED + "" + ChatColor.BOLD + "You ran out of lives...\n" + ChatColor.GREEN + "Get a friend to revive you!", null, "Console");
             DeathManager.addPlayer(p);
