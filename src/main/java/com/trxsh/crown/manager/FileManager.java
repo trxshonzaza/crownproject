@@ -24,51 +24,51 @@ public class FileManager {
     public static File crowns = new File("crowns.mgr");
     public static File data = new File("data.mgr");
     public static String separator = System.getProperty("line.separator");
+    public static Map<UUID, Integer> livesFileList = new HashMap<UUID, Integer>();
+
 
     public static void writeLives() {
 
         try {
 
             FileWriter writer = new FileWriter(lives);
+            StringBuilder sb = new StringBuilder();
 
-            for(Player p : LivesManager.playerLives.keySet()) {
+            for(UUID id : Main.lifeManager.playerLives.keySet()) {
 
-                int lives = LivesManager.playerLives.get(p);
+                int lives = Main.lifeManager.getPlayerLives(id);
 
-                writer.write(p.getUniqueId().toString() + "~" + lives + separator);
+                sb.append(id + "~" + lives + separator);
 
             }
 
+            writer.write(sb.toString());
             writer.close();
 
         }catch(IOException e) { }
 
     }
 
-    public static void readLives() {
+    public static Map<UUID, Integer> readLives() {
+
+        Map<UUID, Integer> toReplace = new HashMap<UUID, Integer>();
 
         try {
 
-            FileReader reader = new FileReader(lives);
-
-            Map<Player, Integer> toReplace = new HashMap<Player, Integer>();
-
-            for(String str : Files.readAllLines(lives.toPath(), StandardCharsets.UTF_8)) {
+            for(String str : Files.readAllLines(lives.toPath())) {
 
                 UUID uuid = UUID.fromString(str.split("~")[0]);
                 int lives = Integer.parseInt(str.split("~")[1]);
 
-                Player player = Bukkit.getPlayer(uuid);
-
-                toReplace.put(player, lives);
+                toReplace.put(uuid, lives);
 
             }
 
-            reader.close();
-
-            LivesManager.playerLives = toReplace;
+            livesFileList = toReplace;
 
         }catch(IOException e) { }
+
+        return toReplace;
 
     }
 
@@ -109,13 +109,15 @@ public class FileManager {
         try {
 
             FileWriter writer = new FileWriter(deaths);
+            StringBuilder sb = new StringBuilder();
 
             for(OfflinePlayer p : DeathManager.deadPlayers.keySet()) {
 
-                writer.write(p.getUniqueId() + separator);
+                sb.append(p.getUniqueId() + separator);
 
             }
 
+            writer.write(sb.toString());
             writer.close();
 
         }catch(IOException e) { }
@@ -126,21 +128,13 @@ public class FileManager {
 
         try {
 
-            FileReader reader = new FileReader(deaths);
-
-            Map<OfflinePlayer, PlayerData> toReplace = new HashMap<OfflinePlayer, PlayerData>();
-
-            for(String str : Files.readAllLines(deaths.toPath(), StandardCharsets.UTF_8)) {
+            for(String str : Files.readAllLines(deaths.toPath())) {
 
                 UUID uuid = UUID.fromString(str);
 
-                toReplace.put(Bukkit.getOfflinePlayer(uuid), PlayerData.getPlayerData(uuid));
+                DeathManager.deadPlayers.put(Bukkit.getOfflinePlayer(uuid), PlayerData.getPlayerData(uuid));
 
             }
-
-            DeathManager.deadPlayers = toReplace;
-
-            reader.close();
 
         }catch(IOException e) { }
 
@@ -150,15 +144,16 @@ public class FileManager {
 
         try {
 
-
             FileWriter writer = new FileWriter(data);
+            StringBuilder sb = new StringBuilder();
 
             for(PlayerData data : Main.instance.data) {
 
-                writer.write(data.getID() + separator);
+                sb.append(data.getID() + separator);
 
             }
 
+            writer.write(sb.toString());
             writer.close();
 
         }catch(IOException e) { }
@@ -169,9 +164,7 @@ public class FileManager {
 
         try {
 
-            FileReader reader = new FileReader(data);
-
-            for(String str : Files.readAllLines(data.toPath(), StandardCharsets.UTF_8)) {
+            for(String str : Files.readAllLines(data.toPath())) {
 
                 UUID id = UUID.fromString(str);
 
@@ -180,12 +173,8 @@ public class FileManager {
 
             }
 
-            reader.close();
-
         }catch(IOException e) { }
 
     }
-
-
 
 }

@@ -1,7 +1,9 @@
 package com.trxsh.crown.executor;
 
+import com.trxsh.crown.Main;
 import com.trxsh.crown.manager.InventoryManager;
 import com.trxsh.crown.manager.LivesManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -17,8 +19,28 @@ public class LifeCheckExecutor implements CommandExecutor {
 
             if(sender instanceof Player) {
 
-                sender.sendMessage("You have " + ChatColor.BOLD + ChatColor.RED + ChatColor.BOLD + LivesManager.instance.getPlayerLives((Player)sender) + " life(s)");
-                return true;
+                if(args.length > 0) {
+
+                    if(sender.isOp()) {
+
+                        Player player = Bukkit.getPlayer(args[0]);
+
+                        sender.sendMessage(player.getName() + " has " + ChatColor.BOLD + ChatColor.RED + ChatColor.BOLD + Main.lifeManager.getPlayerLives(player) + " life(s)");
+                        return true;
+
+                    } else {
+
+                        sender.sendMessage(ChatColor.RED + "You are not operator!");
+                        return true;
+
+                    }
+
+                } else {
+
+                    sender.sendMessage("You have " + ChatColor.BOLD + ChatColor.RED + ChatColor.BOLD + Main.lifeManager.getPlayerLives((Player)sender) + " life(s)");
+                    return true;
+
+                }
 
             } else {
 

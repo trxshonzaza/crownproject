@@ -63,6 +63,7 @@ public final class Main extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[Crown] loading data");
 
+
         if(FileManager.data.exists()) {
 
             FileManager.readPlayerData();
@@ -100,29 +101,10 @@ public final class Main extends JavaPlugin {
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[Crown] saving data");
 
-        if(!FileManager.data.exists()) {
-
-            FileManager.writePlayerData();
-
-        }
-
-        if(!FileManager.crowns.exists()) {
-
-            FileManager.writeCrowns();
-
-        }
-
-        if(!FileManager.lives.exists()) {
-
-            FileManager.writeLives();
-
-        }
-
-        if(!FileManager.deaths.exists()) {
-
-            FileManager.writeDeaths();
-
-        }
+        FileManager.writePlayerData();
+        FileManager.writeCrowns();
+        FileManager.writeLives();
+        FileManager.writeDeaths();
 
         Bukkit.getConsoleSender().sendMessage(ChatColor.YELLOW + "[Crown] saved data!");
 

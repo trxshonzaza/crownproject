@@ -1,15 +1,15 @@
 package com.trxsh.crown.listener;
 
+import com.trxsh.crown.Main;
 import com.trxsh.crown.data.PlayerData;
-import com.trxsh.crown.manager.LivesManager;
-import com.trxsh.crown.manager.PlayerManager;
+import com.trxsh.crown.manager.FileManager;
 import com.trxsh.crown.manager.TextureManager;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerKickEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
+import org.yaml.snakeyaml.Yaml;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -20,9 +20,17 @@ public class PlayerListener implements Listener {
 
         PlayerData.addPlayerData(e.getPlayer().getUniqueId());
 
-        if(!LivesManager.instance.isPlayerRegistered(e.getPlayer())) {
+        if(!Main.lifeManager.isPlayerRegistered(e.getPlayer().getUniqueId())) {
 
-            LivesManager.instance.addNewPlayer(e.getPlayer());
+            if(FileManager.livesFileList.containsKey(e.getPlayer().getUniqueId())) {
+
+                Main.lifeManager.playerLives.put(e.getPlayer().getUniqueId(), FileManager.livesFileList.get(e.getPlayer().getUniqueId()));
+
+            } else {
+
+                Main.lifeManager.addNewPlayer(e.getPlayer().getUniqueId());
+
+            }
 
         }
 

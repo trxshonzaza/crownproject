@@ -1,5 +1,6 @@
 package com.trxsh.crown.executor;
 
+import com.trxsh.crown.Main;
 import com.trxsh.crown.crafting.RecipeManager;
 import com.trxsh.crown.manager.LivesManager;
 import org.bukkit.command.Command;
@@ -25,7 +26,7 @@ public class LifeWithdrawExecutor implements CommandExecutor {
 
                     ItemStack toAdd = RecipeManager.extralife;
 
-                    toAdd.setAmount(LivesManager.instance.removeLifes(((Player) sender).getPlayer(), toTake));
+                    toAdd.setAmount(Main.lifeManager.removeLifes(((Player) sender).getPlayer(), toTake));
 
                     if(toAdd.getAmount() == 0) {
 

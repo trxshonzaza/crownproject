@@ -1,5 +1,6 @@
 package com.trxsh.crown.listener;
 
+import com.trxsh.crown.Main;
 import com.trxsh.crown.handler.CrownHandler;
 import com.trxsh.crown.manager.LivesManager;
 import org.bukkit.ChatColor;
@@ -24,12 +25,12 @@ public class DeathListener implements Listener {
 
         if(e.getEntity() instanceof Player) {
 
-            LivesManager.instance.removeLife((Player)e.getEntity());
+            Main.lifeManager.removeLife((Player)e.getEntity());
             e.getEntity().sendMessage("You lost a life! "  + ChatColor.RED + ChatColor.BOLD + "be careful...");
 
             if(e.getEntity().getKiller() instanceof Player) {
 
-                LivesManager.instance.addLife((Player)e.getEntity().getKiller());
+                Main.lifeManager.addLife((Player)e.getEntity().getKiller());
 
             }
 

@@ -1,73 +1,52 @@
 package com.trxsh.crown.manager;
 
-import org.bukkit.BanList;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Sound;
+import com.sun.jna.platform.win32.Variant;
+import com.trxsh.crown.Main;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class LivesManager {
 
-    public static Map<Player, Integer> playerLives = new HashMap<Player, Integer>();
-    public static LivesManager instance = null;
+    public Map<UUID, Integer> playerLives = new HashMap<UUID, Integer>();
 
     public int defaultLives = 5; // can be changed through config
 
     public LivesManager() {
 
-        for(Player p : Bukkit.getOnlinePlayers()) {
+        for(OfflinePlayer p : Bukkit.getOnlinePlayers()) {
 
             if(FileManager.lives.exists()) {
 
-                FileManager.readLives();
+                playerLives = FileManager.readLives();
 
             }
 
-            if(!playerLives.containsKey(p)) {
+            if(!playerLives.containsKey(p.getUniqueId())) {
 
-                playerLives.put(p, defaultLives);
-
-            }
-
-        }
-
-        instance = this;
-
-    }
-
-    public LivesManager(int defaultLives) {
-
-        this.defaultLives = defaultLives;
-
-        for(Player p : Bukkit.getOnlinePlayers()) {
-
-            if(!playerLives.containsKey(p)) {
-
-                playerLives.put(p, this.defaultLives);
+                playerLives.put(p.getUniqueId(), defaultLives);
 
             }
 
         }
-
-        instance = this;
 
     }
 
     public void removeLife(Player p) {
 
-        int lives = playerLives.get(p);
+        int lives = playerLives.get(p.getUniqueId());
 
         --lives;
 
-        playerLives.replace(p, lives);
+        playerLives.replace(p.getUniqueId(), lives);
 
         if(lives <= 0) {
 
-            playerLives.remove(p);
-            addNewPlayer(p);
+            playerLives.remove(p.getUniqueId());
+            addNewPlayer(p.getUniqueId());
 
             Bukkit.broadcastMessage(ChatColor.RED + p.getName() + " ran out of lives...");
             p.kickPlayer(ChatColor.RED + "" + ChatColor.BOLD + "You ran out of lives...\n" + ChatColor.GREEN + "Get a friend to revive you!");
@@ -80,21 +59,21 @@ public class LivesManager {
 
     public void addLife(Player p) {
 
-        int lives = playerLives.get(p);
+        int lives = playerLives.get(p.getUniqueId());
 
         ++lives;
 
-        playerLives.replace(p, lives);
+        playerLives.replace(p.getUniqueId(), lives);
 
     }
 
     public int removeLifes(Player p, int toTake) {
 
-        int lives = playerLives.get(p);
+        int lives = playerLives.get(p.getUniqueId());
 
         lives = (lives - toTake);
 
-        if(lives < 0 || lives == 0 || lives >= playerLives.get(p)) {
+        if(lives < 0 || lives == 0 || lives >= playerLives.get(p.getUniqueId())) {
 
             p.playSound(p.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, .5f);
             p.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + " You cannot remove all of your lives!");
@@ -103,7 +82,7 @@ public class LivesManager {
 
         }
 
-        playerLives.replace(p, lives);
+        playerLives.replace(p.getUniqueId(), lives);
 
         p.playSound(p.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, .5f);
         p.sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + " Removed lives!");
@@ -112,17 +91,27 @@ public class LivesManager {
 
     }
 
-    public void addNewPlayer(Player p) {
+    public void addNewPlayer(UUID id) {
 
-        playerLives.put(p, defaultLives);
+        playerLives.put(id, defaultLives);
 
     }
 
-    public boolean isPlayerRegistered(Player p) {
+    public void addNewPlayerWithSpecificLives(UUID id, int lives) {
 
-        if(playerLives.containsKey(p)) {
+        playerLives.put(id, lives);
 
-            return true;
+    }
+
+    public boolean isPlayerRegistered(UUID id) {
+
+        for(UUID id1 : playerLives.keySet()) {
+
+            if(id1.equals(id)) {
+
+                return true;
+
+            }
 
         }
 
@@ -132,7 +121,13 @@ public class LivesManager {
 
     public int getPlayerLives(Player p) {
 
-        return playerLives.get(p);
+        return playerLives.get(p.getUniqueId());
+
+    }
+
+    public int getPlayerLives(UUID id) {
+
+        return playerLives.get(id);
 
     }
 

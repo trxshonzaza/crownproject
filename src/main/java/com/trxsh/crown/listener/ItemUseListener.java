@@ -1,5 +1,6 @@
 package com.trxsh.crown.listener;
 
+import com.trxsh.crown.Main;
 import com.trxsh.crown.crafting.RecipeManager;
 import com.trxsh.crown.manager.InventoryManager;
 import com.trxsh.crown.manager.LivesManager;
@@ -34,7 +35,7 @@ public class ItemUseListener implements Listener {
 
                     e.getPlayer().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "You gained an extra life!");
 
-                    LivesManager.instance.addLife(e.getPlayer());
+                    Main.lifeManager.addLife(e.getPlayer());
 
                     if(e.getItem().getAmount() == 1) {
 
